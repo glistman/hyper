@@ -401,7 +401,6 @@ where
         let mut pooled = match self.connection_for(pool_key).await {
             Ok(pooled) => pooled,
             Err(ClientConnectError::Normal(err)) => {
-                println!("PASO  288");
                 return Err(ClientError::Normal(err));
             }
             Err(ClientConnectError::H2CheckoutIsClosed(reason)) => {
@@ -416,7 +415,6 @@ where
         if pooled.is_http1() {
             if req.version() == Version::HTTP_2 {
                 warn!("Connection is HTTP/1, but request requires HTTP/2");
-                println!("PASO  303");
                 return Err(ClientError::Normal(
                     crate::Error::new_user_unsupported_version(),
                 ));
